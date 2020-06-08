@@ -58,55 +58,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: Theme(
-        data: Theme.of(context).copyWith(
-        canvasColor: Color.fromRGBO(156, 174, 202, 1),
-        // sets the active color of the `BottomNavigationBar` if `Brightness` is light
-        textTheme: Theme
-          .of(context)
-          .textTheme
-          .copyWith(caption: new TextStyle(color: Colors.white))),
-        child: BottomNavigationBar(
-          items: <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                title: Text(
-                  'Home',
-                )),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.search),
-                title: Text(
-                  'Search',
-                )),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.calendar_today),
-                title: Text(
-                  'Appointments',
-                )),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.local_shipping),
-                title: Text(
-                  'Orders',
-                )),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.notifications),
-                title: Text(
-                  'Notifications',
-                )),
-            BottomNavigationBarItem(
-            icon: Icon(Icons.email),
-            title: Text(
-              'Contact Us',
-            ))
-          ],
-          currentIndex: 0,
-          type: BottomNavigationBarType.fixed,
-          fixedColor: Color.fromRGBO(3, 119, 155, 1),
-          onTap: _onItemTapped,
-        ),
-      ),
-      body: Stack(
+    return Stack(
         children: <Widget>[
           Container(
             height: MediaQuery.of(context).size.height,
@@ -322,8 +274,7 @@ class _HomeState extends State<Home> {
             ),
           ),
         ],
-      ),
-    );
+      );
   }
 
   Widget product(BuildContext context, int index){

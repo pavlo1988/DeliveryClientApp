@@ -19,138 +19,66 @@ class _OrdersState extends State<Orders> {
     super.initState();
   }
 
-  void _onItemTapped(int index) {
-    if(index == 0){
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (_) => Home()),
-      );
-    }
-
-    else if(index == 1){
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (_) => Search()),
-      );
-    }
-
-    else if(index == 0){
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (_) => Home()),
-      );
-    }
-  }
-
 
   @override
   Widget build(BuildContext context) {
 
-    return Scaffold(
-      bottomNavigationBar: Theme(
-        data: Theme.of(context).copyWith(
-        canvasColor: Color.fromRGBO(156, 174, 202, 1),
-        // sets the active color of the `BottomNavigationBar` if `Brightness` is light
-        textTheme: Theme
-          .of(context)
-          .textTheme
-          .copyWith(caption: new TextStyle(color: Colors.white))),
-        child: BottomNavigationBar(
-          items: <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                title: Text(
-                  'Home',
-                )),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.search),
-                title: Text(
-                  'Search',
-                )),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.calendar_today),
-                title: Text(
-                  'Appointments',
-                )),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.local_shipping),
-                title: Text(
-                  'Orders',
-                )),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.notifications),
-                title: Text(
-                  'Notifications',
-                )),
-            BottomNavigationBarItem(
-            icon: Icon(Icons.email),
-            title: Text(
-              'Contact Us',
-            ))
-          ],
-          currentIndex: 3,
-          type: BottomNavigationBarType.fixed,
-          fixedColor: Color.fromRGBO(3, 119, 155, 1),
-          onTap: _onItemTapped,
+    return Stack(
+      children: <Widget>[
+        Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          child: Image.asset("assets/images/background.jpg", fit: BoxFit.cover),
         ),
-      ),
-      body: Stack(
-        children: <Widget>[
-          Container(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            child: Image.asset("assets/images/background.jpg", fit: BoxFit.cover),
-          ),
 
-          Column(
-            children: <Widget>[
-              
-              Expanded(
-                flex: 2,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    Image.asset("assets/images/small_logo.png"),
-                    Center(
-                      child: Text("ORDERS", style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),),
-                    ),
-                  ],
-                ),
-              ),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+        Column(
+          children: <Widget>[
+            
+            Expanded(
+              flex: 2,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
-                  GestureDetector(
-                    onTap: (){
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (_) => TrackOrder()),
-                      );
-                    },
-                    child: Text("Track my order", style: TextStyle(fontSize: 18, color: Colors.white)),
+                  Image.asset("assets/images/small_logo.png"),
+                  Center(
+                    child: Text("ORDERS", style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),),
                   ),
                 ],
               ),
+            ),
 
-              Expanded(
-                flex: 11,
-                child: Container(
-                  margin: EdgeInsets.all(5),
-                  child: MediaQuery.removePadding(
-                    context: context,
-                    removeTop: true,
-                    child:  ListView.builder(
-                      itemCount: 3,
-                      itemBuilder: order,
-                    ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                GestureDetector(
+                  onTap: (){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => TrackOrder()),
+                    );
+                  },
+                  child: Text("Track my order", style: TextStyle(fontSize: 18, color: Colors.white)),
+                ),
+              ],
+            ),
+
+            Expanded(
+              flex: 11,
+              child: Container(
+                margin: EdgeInsets.all(5),
+                child: MediaQuery.removePadding(
+                  context: context,
+                  removeTop: true,
+                  child:  ListView.builder(
+                    itemCount: 3,
+                    itemBuilder: order,
                   ),
                 ),
               ),
-            ],
-          ),
-        ],
-      ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 
