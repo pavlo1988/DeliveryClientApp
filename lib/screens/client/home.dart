@@ -1,9 +1,7 @@
 import 'package:badges/badges.dart';
+import 'package:delivery_app/firebase_services/ads_controller.dart';
+import 'package:delivery_app/models/ads_model.dart';
 import 'package:delivery_app/screens/client/cart.dart';
-import 'package:delivery_app/screens/client/orders.dart';
-import 'package:delivery_app/screens/client/search.dart';
-import 'package:delivery_app/screens/provider/active.dart';
-import 'package:delivery_app/screens/provider/stock.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -17,42 +15,18 @@ class _HomeState extends State<Home> {
   bool promotionVertical = false;
   bool adsVerticalValue = false;
   bool horizontal = true;
-
+  List<Ads> adsList = [];
   @override
   void initState() {
     // TODO: implement initState
+    getAllAds();
     super.initState();
   }
 
-  void _onItemTapped(int index) {
+  getAllAds() async {
+    List<Ads> _adsList = await AdsController.getAllAds();
     setState(() {
-      if(index == 1){
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (_) => Search()),
-        );
-      }
-
-      else if(index == 3){
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (_) => Orders()),
-        );
-      }
-
-      else if(index == 4){
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (_) => Stock()),
-        );
-      }
-
-      else if(index == 5){
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (_) => Active()),
-        );
-      }
+      adsList = _adsList;
     });
   }
 
@@ -155,7 +129,7 @@ class _HomeState extends State<Home> {
                             child: Container(
                               child: ListView.builder(
                                 scrollDirection: Axis.horizontal,
-                                itemCount: 3,
+                                itemCount: adsList.length,
                                 itemBuilder: ads,
                               )
                             ),
@@ -263,7 +237,7 @@ class _HomeState extends State<Home> {
                       child: Container(
                         child: ListView.builder(
                           scrollDirection: Axis.vertical,
-                          itemCount: 3,
+                          itemCount: adsList.length,
                           itemBuilder: adsVertical,
                         )
                       ),
