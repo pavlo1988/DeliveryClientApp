@@ -1,6 +1,8 @@
 import 'package:badges/badges.dart';
 import 'package:delivery_app/firebase_services/ads_controller.dart';
+import 'package:delivery_app/firebase_services/product_controller.dart';
 import 'package:delivery_app/models/ads_model.dart';
+import 'package:delivery_app/models/product.dart';
 import 'package:delivery_app/screens/client/cart.dart';
 import 'package:flutter/material.dart';
 
@@ -15,12 +17,21 @@ class _HomeState extends State<Home> {
   bool promotionVertical = false;
   bool adsVerticalValue = false;
   bool horizontal = true;
+  List<Product> productList = [];
   List<Ads> adsList = [];
   @override
   void initState() {
     // TODO: implement initState
     getAllAds();
+    getAllProducts();
     super.initState();
+  }
+
+  getAllProducts() async {
+    List<Product> _productList = await ProductController.getAllProducts();
+    setState(() {
+      productList = _productList;
+    });
   }
 
   getAllAds() async {
@@ -87,7 +98,7 @@ class _HomeState extends State<Home> {
                             child: Container(
                               child: ListView.builder(
                                 scrollDirection: Axis.horizontal,
-                                itemCount: 3,
+                                itemCount: productList.length,
                                 itemBuilder: product,
                               )
                             ),
@@ -264,14 +275,14 @@ class _HomeState extends State<Home> {
           Expanded(
             flex: 6,
             child: Container(
-              child: Image.asset("assets/product.jpg", fit: BoxFit.cover)
+              child: Image.network(productList[index].image, fit: BoxFit.cover)
             ),
           ),
 
           Expanded(
             flex: 1,
             child: Container(
-              child: Text("Product Name", style: TextStyle(color: Colors.white, fontSize: 16),),
+              child: Text(productList[index].productName, style: TextStyle(color: Colors.white, fontSize: 16),),
             ),
           ),
 
@@ -284,7 +295,7 @@ class _HomeState extends State<Home> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text("\$39.9", style: TextStyle(color: Color.fromRGBO(150, 171, 182, 1), fontSize: 12),),
+                    Text("\$" + productList[index].productPrice, style: TextStyle(color: Color.fromRGBO(150, 171, 182, 1), fontSize: 12),),
                     Text("10% off\n \$35.5", style: TextStyle(color: Color.fromRGBO(150, 171, 182, 1), fontSize: 12),),
                   ],
                 ),

@@ -1,10 +1,6 @@
-import 'package:badges/badges.dart';
-import 'package:delivery_app/screens/client/cart.dart';
 import 'package:delivery_app/screens/client/home.dart';
 import 'package:delivery_app/screens/client/orders.dart';
 import 'package:delivery_app/screens/client/search.dart';
-import 'package:delivery_app/screens/provider/active.dart';
-import 'package:delivery_app/screens/provider/stock.dart';
 import 'package:flutter/material.dart';
 
 class Start extends StatefulWidget {
