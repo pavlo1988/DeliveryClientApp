@@ -21,4 +21,20 @@ class CartController{
     }
     return cartProductList;
   }  
+
+  static Future<void> deleteCartProduct(List<CartProduct> cartProductList) async {
+    QuerySnapshot docSnapshot = await db
+      .collection("carts")
+      .where("clientId", isEqualTo: SessionManager.getUserId())
+      .getDocuments();
+
+    var _updatedCartProducts = [];
+    for(int i=0; i < cartProductList.length; i++){
+      _updatedCartProducts.add(cartProductList[i].toJson());
+    }
+
+    docSnapshot.documents[0].reference.updateData({
+      "products" : _updatedCartProducts,
+    });
+  }
 }

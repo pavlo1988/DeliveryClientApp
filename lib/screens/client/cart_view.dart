@@ -2,7 +2,6 @@ import 'package:delivery_app/firebase_services/cart_controller.dart';
 import 'package:delivery_app/models/cart_product.dart';
 import 'package:delivery_app/screens/client/home.dart';
 import 'package:delivery_app/screens/client/search.dart';
-import 'package:delivery_app/utils/session_manager.dart';
 import 'package:flutter/material.dart';
 
 class CartView extends StatefulWidget {
@@ -26,6 +25,13 @@ class _CartViewState extends State<CartView> {
     setState(() {
       cartProductList = _cartProductList;
     });
+  }
+
+  deleteCartProduct(int index) async {
+    setState(() {
+      cartProductList.removeAt(index);
+    });
+    await CartController.deleteCartProduct(cartProductList);
   }
 
   void _onItemTapped(int index) {
@@ -390,7 +396,12 @@ class _CartViewState extends State<CartView> {
             flex: 1,
             child: Column(
               children: <Widget>[
-                Icon(Icons.delete_forever, color: Colors.red),
+                GestureDetector(
+                  onTap: (){
+                    deleteCartProduct(index);
+                  },
+                  child: Icon(Icons.delete_forever, color: Colors.red),
+                ),
                 SizedBox(height: 5),
                 Text("\$" + (double.parse(cartProductList[index].productPrice) * cartProductList[index].count).toString(), style: TextStyle(color: Colors.white),)
               ],
