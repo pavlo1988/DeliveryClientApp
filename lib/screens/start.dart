@@ -20,7 +20,6 @@ class _StartState extends State<Start> {
 
   @override
   void initState() {
-    // TODO: implement initState
     tabBody = Home();
 
     super.initState();

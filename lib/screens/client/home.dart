@@ -3,7 +3,8 @@ import 'package:delivery_app/firebase_services/ads_controller.dart';
 import 'package:delivery_app/firebase_services/product_controller.dart';
 import 'package:delivery_app/models/ads_model.dart';
 import 'package:delivery_app/models/product.dart';
-import 'package:delivery_app/screens/client/cart.dart';
+import 'package:delivery_app/screens/client/add_cart.dart';
+import 'package:delivery_app/screens/client/cart_view.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -60,7 +61,7 @@ class _HomeState extends State<Home> {
                     onTap: (){
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (_) => Cart()),  
+                        MaterialPageRoute(builder: (_) => CartView()),  
                       );
                     },
                     child: Padding(
@@ -306,7 +307,15 @@ class _HomeState extends State<Home> {
 
                 Expanded(
                   flex: 3,
-                  child: Icon(Icons.shopping_cart, color: Color.fromRGBO(150, 171, 182, 1),),
+                  child: GestureDetector(
+                    onTap: (){
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => AddCart()),
+                      );
+                    },
+                    child: Icon(Icons.shopping_cart, color: Color.fromRGBO(150, 171, 182, 1),),
+                  ),
                 ),
               ],
             ),
