@@ -52,5 +52,4 @@ class CartController{
       "products" : _updatedCartProducts,
     });
   }
-
 }
