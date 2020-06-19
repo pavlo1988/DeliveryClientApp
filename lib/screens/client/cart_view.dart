@@ -34,6 +34,10 @@ class _CartViewState extends State<CartView> {
     await CartController.deleteCartProduct(cartProductList);
   }
 
+  updateCartProductCount(List<CartProduct> updatedCartProductList) async {
+    await CartController.updateCartProductCount(updatedCartProductList);
+  }
+
   void _onItemTapped(int index) {
     if(index == 0){
       Navigator.push(
@@ -368,6 +372,7 @@ class _CartViewState extends State<CartView> {
                       onChanged: (int newValue) {
                         setState(() {
                           cartProductList[index].count = newValue;
+                          updateCartProductCount(cartProductList);
                         });
                       },
                       items: <int>[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
