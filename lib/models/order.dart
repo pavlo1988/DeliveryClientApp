@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:delivery_app/models/cart_product.dart';
 
 class Order {
   String id;
@@ -8,6 +9,7 @@ class Order {
   String status;
   GeoPoint position;
   String totalAmount;
+  var products;
 
   Order(
     {
@@ -17,7 +19,8 @@ class Order {
       this.orderDate,
       this.status,
       this.position,
-      this.totalAmount
+      this.totalAmount,
+      this.products
     }
   );
 
@@ -30,6 +33,11 @@ class Order {
     status = json['status'];
     position = json['position'];
     totalAmount = json['totalAmount'];
+    var _products = [];
+    for(int i=0; i< json['products'].length; i++){
+      _products.add(new CartProduct.fromJson(json['products'][i]));
+      products = _products;
+    }
   }
 
 
@@ -40,6 +48,7 @@ class Order {
     'orderDate': orderDate,
     'status': status,
     'position': position,
-    'totalAmount' : totalAmount
+    'totalAmount' : totalAmount,
+    'products': products.map((product) {return product.toJson();}),
   };
 }

@@ -52,7 +52,7 @@ class _CartViewState extends State<CartView> {
   }
 
   placeOrder() async {
-    await OrderController.placeOrder(getSubTotal()+5.40);
+    await OrderController.placeOrder(getSubTotal()+5.40, cartProductList);
   }
 
   void _onItemTapped(int index) {
