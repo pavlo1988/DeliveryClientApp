@@ -1,4 +1,5 @@
 import 'package:delivery_app/firebase_services/cart_controller.dart';
+import 'package:delivery_app/firebase_services/order_controller.dart';
 import 'package:delivery_app/models/cart_product.dart';
 import 'package:delivery_app/models/product.dart';
 import 'package:delivery_app/screens/client/home.dart';
@@ -16,6 +17,7 @@ class AddCart extends StatefulWidget {
 }
 class _AddCartState extends State<AddCart> {
   
+  double subTotal = 0.0;
 
   List<CartProduct> cartProductList = [];
   @override
@@ -50,6 +52,22 @@ class _AddCartState extends State<AddCart> {
 
   updateCartProductCount(List<CartProduct> updatedCartProductList) async {
     await CartController.updateCartProductCount(updatedCartProductList);
+  }
+
+  double getSubTotal() {
+    setState(() {
+      subTotal = 0.0;
+    });
+    for(int i=0; i < cartProductList.length; i++){
+      setState(() {
+        subTotal += double.parse(cartProductList[i].productPrice) * cartProductList[i].count;
+      });
+    }
+    return subTotal;
+  }
+
+  placeOrder() async {
+    await OrderController.placeOrder(getSubTotal()+5.40);
   }
 
   void _onItemTapped(int index) {
@@ -239,7 +257,7 @@ class _AddCartState extends State<AddCart> {
                                   flex: 2,
                                   child: Container(
                                     margin: EdgeInsets.only(right: 40,),
-                                    child: Text("\$180.00", style: TextStyle(color: Colors.white), textAlign: TextAlign.end,),
+                                    child: Text("\$" + getSubTotal().toString(), style: TextStyle(color: Colors.white), textAlign: TextAlign.end,),
                                   ),
                                 ),
                               ],
@@ -314,7 +332,7 @@ class _AddCartState extends State<AddCart> {
                                           flex: 2,
                                           child: Container(
                                             margin: EdgeInsets.only(right: 40,),
-                                            child: Text("\$185.40", style: TextStyle(color: Colors.white), textAlign: TextAlign.end,),
+                                            child: Text("\$" + (getSubTotal()+5.40).toString(), style: TextStyle(color: Colors.white), textAlign: TextAlign.end,),
                                           ),
                                         ),
                                       ],
@@ -335,7 +353,9 @@ class _AddCartState extends State<AddCart> {
                     ),
                     MaterialButton(
                       height: 50,
-                      onPressed: (){},
+                      onPressed: (){
+                        placeOrder();
+                      },
                       color: Color.fromRGBO(246, 170, 0, 1),
                       child: Text("PLACE ORDER"),
                     ),

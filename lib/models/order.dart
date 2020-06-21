@@ -7,6 +7,7 @@ class Order {
   DateTime orderDate;
   String status;
   GeoPoint position;
+  String totalAmount;
 
   Order(
     {
@@ -15,7 +16,8 @@ class Order {
       this.orderBy,
       this.orderDate,
       this.status,
-      this.position
+      this.position,
+      this.totalAmount
     }
   );
 
@@ -27,6 +29,7 @@ class Order {
     orderDate = json['orderDate'].toDate();
     status = json['status'];
     position = json['position'];
+    totalAmount = json['totalAmount'];
   }
 
 
@@ -37,5 +40,6 @@ class Order {
     'orderDate': orderDate,
     'status': status,
     'position': position,
+    'totalAmount' : totalAmount
   };
 }

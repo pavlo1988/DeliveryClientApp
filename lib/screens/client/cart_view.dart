@@ -1,4 +1,5 @@
 import 'package:delivery_app/firebase_services/cart_controller.dart';
+import 'package:delivery_app/firebase_services/order_controller.dart';
 import 'package:delivery_app/models/cart_product.dart';
 import 'package:delivery_app/screens/client/home.dart';
 import 'package:delivery_app/screens/client/search.dart';
@@ -12,7 +13,7 @@ class CartView extends StatefulWidget {
 }
 class _CartViewState extends State<CartView> {
   
-
+  double subTotal = 0.0;
   List<CartProduct> cartProductList = [];
   @override
   void initState() {
@@ -27,6 +28,18 @@ class _CartViewState extends State<CartView> {
     });
   }
 
+  double getSubTotal() {
+    setState(() {
+      subTotal = 0.0;
+    });
+    for(int i=0; i < cartProductList.length; i++){
+      setState(() {
+        subTotal += double.parse(cartProductList[i].productPrice) * cartProductList[i].count;
+      });
+    }
+    return subTotal;
+  }
+
   deleteCartProduct(int index) async {
     setState(() {
       cartProductList.removeAt(index);
@@ -36,6 +49,10 @@ class _CartViewState extends State<CartView> {
 
   updateCartProductCount(List<CartProduct> updatedCartProductList) async {
     await CartController.updateCartProductCount(updatedCartProductList);
+  }
+
+  placeOrder() async {
+    await OrderController.placeOrder(getSubTotal()+5.40);
   }
 
   void _onItemTapped(int index) {
@@ -219,13 +236,13 @@ class _CartViewState extends State<CartView> {
                                 Expanded(
                                   flex: 1,
                                   child: Container(
-                                    child: Text("SUBTOTAL", style: TextStyle(color: Colors.white),),                                ),
+                                    child: Text("SUBTOTAL", style: TextStyle(color: Colors.white),),),
                                 ),
                                 Expanded(
                                   flex: 2,
                                   child: Container(
                                     margin: EdgeInsets.only(right: 40,),
-                                    child: Text("\$180.00", style: TextStyle(color: Colors.white), textAlign: TextAlign.end,),
+                                    child: Text("\$" + getSubTotal().toString(), style: TextStyle(color: Colors.white), textAlign: TextAlign.end,),
                                   ),
                                 ),
                               ],
@@ -300,7 +317,7 @@ class _CartViewState extends State<CartView> {
                                           flex: 2,
                                           child: Container(
                                             margin: EdgeInsets.only(right: 40,),
-                                            child: Text("\$185.40", style: TextStyle(color: Colors.white), textAlign: TextAlign.end,),
+                                            child: Text("\$" + (getSubTotal()+5.40).toString(), style: TextStyle(color: Colors.white), textAlign: TextAlign.end,),
                                           ),
                                         ),
                                       ],
@@ -321,7 +338,9 @@ class _CartViewState extends State<CartView> {
                     ),
                     MaterialButton(
                       height: 50,
-                      onPressed: (){},
+                      onPressed: (){
+                        placeOrder();
+                      },
                       color: Color.fromRGBO(246, 170, 0, 1),
                       child: Text("PLACE ORDER"),
                     ),

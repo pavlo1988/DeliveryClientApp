@@ -4,7 +4,6 @@ import 'package:delivery_app/models/ads_model.dart';
 
 class AdsController{
   static Future<List<Ads>> getAllAvailableAds() async {
-    
     QuerySnapshot docSnapshot = await db
       .collection("ads")
       .where("available", isEqualTo: true)

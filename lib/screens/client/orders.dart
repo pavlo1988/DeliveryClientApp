@@ -20,7 +20,7 @@ class _OrdersState extends State<Orders> {
   }
 
   getAllOrders() async {
-    List<Order> _orderList = await OrderController.getAllCategories();
+    List<Order> _orderList = await OrderController.getAllOrders();
     setState(() {
       orderList = _orderList;
     });
