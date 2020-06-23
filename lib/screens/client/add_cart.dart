@@ -40,7 +40,7 @@ class _AddCartState extends State<AddCart> {
         )
       );
     });
-    
+    updateCartProductCount(cartProductList);
   }
 
   deleteCartProduct(int index) async {
@@ -67,7 +67,11 @@ class _AddCartState extends State<AddCart> {
   }
 
   placeOrder() async {
-    await OrderController.placeOrder(getSubTotal()+5.40, cartProductList);
+    await CartController.deleteAllCartProducts();
+    await OrderController.placeOrder(getSubTotal(), cartProductList);
+    setState(() {
+      cartProductList = [];
+    });
   }
 
   void _onItemTapped(int index) {
@@ -168,7 +172,7 @@ class _AddCartState extends State<AddCart> {
                       children: <Widget>[
                         GestureDetector(
                           onTap: (){
-                            Navigator.pop(context);
+                            Navigator.pop(context, cartProductList.length);
                           },
                           child: Icon(Icons.arrow_back, color: Colors.white,),
                         ),
@@ -264,52 +268,52 @@ class _AddCartState extends State<AddCart> {
                             ),
                           ),
 
-                          Container(
-                            margin: EdgeInsets.only(bottom: 10),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: <Widget>[
-                                Expanded(
-                                  flex: 1,
-                                  child: Container()
-                                ),
-                                Expanded(
-                                  flex: 1,
-                                  child: Text("TAX", style: TextStyle(color: Colors.white),),
-                                ),
-                                Expanded(
-                                  flex: 2,
-                                  child: Container(
-                                    margin: EdgeInsets.only(right: 40,),
-                                    child: Text("\$3.40", style: TextStyle(color: Colors.white), textAlign: TextAlign.end,),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+                          // Container(
+                          //   margin: EdgeInsets.only(bottom: 10),
+                          //   child: Row(
+                          //     crossAxisAlignment: CrossAxisAlignment.end,
+                          //     children: <Widget>[
+                          //       Expanded(
+                          //         flex: 1,
+                          //         child: Container()
+                          //       ),
+                          //       Expanded(
+                          //         flex: 1,
+                          //         child: Text("TAX", style: TextStyle(color: Colors.white),),
+                          //       ),
+                          //       Expanded(
+                          //         flex: 2,
+                          //         child: Container(
+                          //           margin: EdgeInsets.only(right: 40,),
+                          //           child: Text("\$3.40", style: TextStyle(color: Colors.white), textAlign: TextAlign.end,),
+                          //         ),
+                          //       ),
+                          //     ],
+                          //   ),
+                          // ),
 
-                          Container(
-                            margin: EdgeInsets.only(bottom:10),
-                            child: Row(
-                              children: <Widget>[
-                                Expanded(
-                                  flex: 1,
-                                  child: Container()
-                                ),
-                                Expanded(
-                                  flex: 1,
-                                  child: Text("DELIVERY", style: TextStyle(color: Colors.white),),
-                                ),
-                                Expanded(
-                                  flex: 2,
-                                  child: Container(
-                                    margin: EdgeInsets.only(right: 40,),
-                                    child: Text("\$2.00", style: TextStyle(color: Colors.white), textAlign: TextAlign.end,),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+                          // Container(
+                          //   margin: EdgeInsets.only(bottom:10),
+                          //   child: Row(
+                          //     children: <Widget>[
+                          //       Expanded(
+                          //         flex: 1,
+                          //         child: Container()
+                          //       ),
+                          //       Expanded(
+                          //         flex: 1,
+                          //         child: Text("DELIVERY", style: TextStyle(color: Colors.white),),
+                          //       ),
+                          //       Expanded(
+                          //         flex: 2,
+                          //         child: Container(
+                          //           margin: EdgeInsets.only(right: 40,),
+                          //           child: Text("\$2.00", style: TextStyle(color: Colors.white), textAlign: TextAlign.end,),
+                          //         ),
+                          //       ),
+                          //     ],
+                          //   ),
+                          // ),
                           Container(
                             child: Row(
                               children: <Widget>[
@@ -332,7 +336,7 @@ class _AddCartState extends State<AddCart> {
                                           flex: 2,
                                           child: Container(
                                             margin: EdgeInsets.only(right: 40,),
-                                            child: Text("\$" + (getSubTotal()+5.40).toString(), style: TextStyle(color: Colors.white), textAlign: TextAlign.end,),
+                                            child: Text("\$" + (getSubTotal()).toString(), style: TextStyle(color: Colors.white), textAlign: TextAlign.end,),
                                           ),
                                         ),
                                       ],

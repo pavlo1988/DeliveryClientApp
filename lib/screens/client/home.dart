@@ -74,7 +74,11 @@ class _HomeState extends State<Home> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (_) => CartView()),  
-                      );
+                      ).then((value){
+                        setState(() {
+                          cartProductCount = value;
+                        });
+                      });
                     },
                     child: Padding(
                       padding: EdgeInsets.only(top: 25, left: 10, right: 10),
@@ -324,7 +328,11 @@ class _HomeState extends State<Home> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (_) => AddCart(product: productList[index])),
-                      );
+                      ).then((value){
+                        setState(() {
+                          cartProductCount = value;
+                        });
+                      });
                     },
                     child: Icon(Icons.shopping_cart, color: Color.fromRGBO(150, 171, 182, 1),),
                   ),

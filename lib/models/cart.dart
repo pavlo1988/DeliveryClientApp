@@ -3,7 +3,7 @@ import 'package:delivery_app/models/cart_product.dart';
 class Cart {
   String id;
   String clientId;
-  List<CartProduct> products;
+  var products;
 
   Cart(
     {
@@ -17,7 +17,11 @@ class Cart {
   Cart.fromJson(Map<dynamic, dynamic> json){
     id = json['id'];
     clientId = json['clientId'];
-    products = json['products'].map((product) {return CartProduct.fromJson(product);}).toList();
+    var _products = [];
+    for(int i=0; i< json['products'].length; i++){
+      _products.add(new CartProduct.fromJson(json['products'][i]));
+      products = _products;
+    }
   }
 
 
