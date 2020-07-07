@@ -84,7 +84,6 @@ class _StartState extends State<Start> {
 
         default: 
           {
-            // tabBody = Search();
             currentIndex = index;
           }
       }
