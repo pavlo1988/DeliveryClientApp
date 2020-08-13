@@ -1,3 +1,4 @@
+import 'package:delivery_app/custom/settings.dart';
 import 'package:delivery_app/screens/client/chatpage.dart';
 import 'package:flutter/material.dart';
 
@@ -26,6 +27,7 @@ class _ContactPageState extends State<ContactPage> {
             child: SingleChildScrollView(
               child: Column(
                 children: <Widget>[
+                  setting(context),
                   Image.asset("assets/images/small_logo.png"),
                   Text("Contact Us", style: TextStyle(fontSize: 30, color: Colors.white, fontWeight: FontWeight.w800),),
                   

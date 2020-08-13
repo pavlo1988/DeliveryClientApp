@@ -1,3 +1,4 @@
+import 'package:delivery_app/custom/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
@@ -25,6 +26,7 @@ class _NotificationsState extends State<Notifications> {
             height: height,
             child: Column(
               children: <Widget>[
+                setting(context),
                 Image.asset("assets/images/small_logo.png"),
                 Padding(
                   padding: EdgeInsets.only(top: 20, bottom: 20),

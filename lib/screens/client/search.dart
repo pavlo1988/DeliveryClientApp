@@ -1,3 +1,5 @@
+import 'package:delivery_app/custom/settings.dart';
+import 'package:delivery_app/custom/settings_modal.dart';
 import 'package:delivery_app/firebase_services/product_controller.dart';
 import 'package:delivery_app/models/product.dart';
 import 'package:delivery_app/screens/client/product_detail.dart';
@@ -43,6 +45,7 @@ class _SearchState extends State<Search> {
             Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
+                setting(context),
                 Image.asset("assets/images/small_logo.png"),
                 Center(
                   child: Text("SEARCH", style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),),

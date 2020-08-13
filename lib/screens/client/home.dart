@@ -1,4 +1,6 @@
 import 'package:badges/badges.dart';
+import 'package:delivery_app/custom/settings.dart';
+import 'package:delivery_app/custom/settings_modal.dart';
 import 'package:delivery_app/firebase_services/ads_controller.dart';
 import 'package:delivery_app/firebase_services/cart_controller.dart';
 import 'package:delivery_app/firebase_services/product_controller.dart';
@@ -70,29 +72,29 @@ class _HomeState extends State<Home> {
                 width: MediaQuery.of(context).size.width,
                 child: Column(
                   children: <Widget>[
-                    GestureDetector(
-                      onTap: (){
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (_) => CartView()),  
-                        ).then((value){
-                          setState(() {
-                            cartProductCount = value;
-                          });
-                        });
-                      },
-                      child: Padding(
-                        padding: EdgeInsets.only(top: 25, left: 10, right: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Icon(Icons.settings, color: Color.fromRGBO(192, 220, 245, 1)),
-                            Badge(
+                    Padding(
+                      padding: EdgeInsets.only(top: 25, left: 10, right: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          setting(context),
+                          GestureDetector(
+                            onTap: (){
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (_) => CartView()),  
+                              ).then((value){
+                                setState(() {
+                                  cartProductCount = value;
+                                });
+                              });
+                            },
+                            child: Badge(
                               badgeContent: Text(cartProductCount.toString() , style: TextStyle(color: Colors.white),),
                               child: Icon(Icons.shopping_cart, color: Color.fromRGBO(192, 220, 245, 1)),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                     Image.asset("assets/images/small_logo.png"),

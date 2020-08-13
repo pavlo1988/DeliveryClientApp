@@ -1,3 +1,4 @@
+import 'package:delivery_app/custom/settings.dart';
 import 'package:flutter/material.dart';
 
 class AppointmentPage extends StatefulWidget {
@@ -19,6 +20,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+            setting(context),
             Center(child: Image.asset("assets/images/small_logo.png")),
             Padding(
               padding: EdgeInsets.only(top: 5, bottom: 10),
