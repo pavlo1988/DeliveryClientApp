@@ -38,55 +38,52 @@ class _OrdersState extends State<Orders> {
           child: Image.asset("assets/images/background.jpg", fit: BoxFit.cover),
         ),
 
-        Padding(
-          padding: EdgeInsets.only(top: 10),
-          child: Column(
-            children: <Widget>[
-              Expanded(
-                flex: 2,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    setting(context),
-                    Image.asset("assets/images/small_logo.png"),
-                    Center(
-                      child: Text("ORDERS", style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),),
-                    ),
-                  ],
-                ),
-              ),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+        Column(
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.only(top: 30),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
-                  GestureDetector(
-                    onTap: (){
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (_) => TrackOrder()),
-                      );
-                    },
-                    child: Text("Track my order", style: TextStyle(fontSize: 18, color: Colors.white)),
+                  setting(context),
+                  Image.asset("assets/images/small_logo.png"),
+                  Center(
+                    child: Text("ORDERS", style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),),
                   ),
                 ],
               ),
+            ),
 
-              Expanded(
-                flex: 7,
-                child: Container(
-                  margin: EdgeInsets.all(5),
-                  child: MediaQuery.removePadding(
-                    context: context,
-                    removeTop: true,
-                    child:  ListView.builder(
-                      itemCount: orderList.length,
-                      itemBuilder: order,
-                    ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                GestureDetector(
+                  onTap: (){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => TrackOrder()),
+                    );
+                  },
+                  child: Text("Track my order", style: TextStyle(fontSize: 18, color: Colors.white)),
+                ),
+              ],
+            ),
+
+            Expanded(
+              flex: 11,
+              child: Container(
+                margin: EdgeInsets.all(5),
+                child: MediaQuery.removePadding(
+                  context: context,
+                  removeTop: true,
+                  child:  ListView.builder(
+                    itemCount: orderList.length,
+                    itemBuilder: order,
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ],
     );

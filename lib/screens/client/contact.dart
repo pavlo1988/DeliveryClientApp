@@ -30,7 +30,6 @@ class _ContactPageState extends State<ContactPage> {
                   setting(context),
                   Image.asset("assets/images/small_logo.png"),
                   Text("Contact Us", style: TextStyle(fontSize: 30, color: Colors.white, fontWeight: FontWeight.w800),),
-                  
                   Padding(
                     padding: EdgeInsets.only(left: 35, right: 35),
                     child: Column(
