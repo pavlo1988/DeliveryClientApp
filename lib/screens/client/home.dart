@@ -51,7 +51,6 @@ class _HomeState extends State<Home> {
     setState(() {
       cartProductCount = _cartProductList.length;
     });
-    
   }
 
   @override

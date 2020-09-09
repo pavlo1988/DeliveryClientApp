@@ -4,6 +4,7 @@ import 'package:delivery_app/screens/client/home.dart';
 import 'package:delivery_app/screens/client/notificationPage.dart';
 import 'package:delivery_app/screens/client/orders.dart';
 import 'package:delivery_app/screens/client/search.dart';
+import 'package:delivery_app/utils/session_manager.dart';
 import 'package:flutter/material.dart';
 
 class TabPage extends StatefulWidget {
@@ -29,7 +30,6 @@ class _TabPageState extends State<TabPage> {
 
   @override
   void initState() {
-
     super.initState();
   }
 

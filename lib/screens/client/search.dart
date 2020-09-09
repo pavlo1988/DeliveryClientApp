@@ -1,6 +1,9 @@
 import 'package:delivery_app/custom/settings.dart';
+import 'package:delivery_app/firebase_services/cart_controller.dart';
 import 'package:delivery_app/firebase_services/product_controller.dart';
+import 'package:delivery_app/models/cart_product.dart';
 import 'package:delivery_app/models/product.dart';
+import 'package:delivery_app/screens/client/add_cart.dart';
 import 'package:delivery_app/screens/client/product_detail.dart';
 import 'package:flutter/material.dart';
 
@@ -13,6 +16,7 @@ class Search extends StatefulWidget {
 class _SearchState extends State<Search> {
 
   List<Product> productList = [];
+  int cartProductCount = 0;
   
   @override
   void initState() {
@@ -24,6 +28,13 @@ class _SearchState extends State<Search> {
     List<Product> _productList = await ProductController.getAllAvailableProducts();
     setState(() {
       productList = _productList;
+    });
+  }
+
+  getAllCartProducts() async {
+    List<CartProduct> _cartProductList = await CartController.getAllCartProducts();
+    setState(() {
+      cartProductCount = _cartProductList.length;
     });
   }
 
@@ -133,7 +144,19 @@ class _SearchState extends State<Search> {
 
                   Expanded(
                     flex: 3,
-                    child: Icon(Icons.shopping_cart, color: Color.fromRGBO(150, 171, 182, 1),),
+                    child: GestureDetector(
+                      onTap: (){
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (_) => AddCart(product: productList[index])),
+                        ).then((value){
+                          setState(() {
+                            cartProductCount = value;
+                          });
+                        });
+                      },
+                      child: Icon(Icons.shopping_cart, color: Color.fromRGBO(150, 171, 182, 1),)
+                    ),
                   ),
                 ],
               ),
