@@ -28,4 +28,15 @@ class Auth implements BaseAuth {
     }
     return User.fromJson(docSnapShot.documents[0].data);
   }
+
+  Future<void> saveUserInfo(User user) async {
+    QuerySnapshot docSnapShot = await db
+      .collection('clients')
+      .where('uid', isEqualTo: user.uid)
+      .getDocuments();
+    
+    if(docSnapShot == null) return;
+    docSnapShot.documents[0].reference
+      .updateData(user.toJson());
+  }
 }

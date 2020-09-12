@@ -1,3 +1,6 @@
+import 'package:delivery_app/firebase_services/authentication.dart';
+import 'package:delivery_app/models/user_model.dart';
+import 'package:delivery_app/utils/session_manager.dart';
 import 'package:flutter/material.dart';
 class SettingsModal extends StatefulWidget {
 
@@ -7,9 +10,31 @@ class SettingsModal extends StatefulWidget {
 
 class _SettingsModalState extends State<SettingsModal> {
 
+  String name = "";
+  String gender = "";
+  String phone = "";
+  String mobile = "";
+
   @override
   void initState() {
+    name = SessionManager.getUserName();
+    gender = SessionManager.getGender();
+    phone = SessionManager.getPhone();
+    mobile = SessionManager.getMobile();
     super.initState();
+  }
+
+  saveUserInfo() async {
+    await Auth().saveUserInfo(
+      User(
+        uid: SessionManager.getUserId(),
+        name: name,
+        gender: gender,
+        phone: phone,
+        mobile: mobile,
+        email: SessionManager.getEmail(),
+      )
+    );
   }
 
   @override
@@ -28,50 +53,75 @@ class _SettingsModalState extends State<SettingsModal> {
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 4),
                 child: TextFormField(
+                  initialValue: name,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                     ),
                     hintText: "Name"
                   ),
+                  onChanged: (value){
+                    setState(() {
+                      name = value;
+                    });
+                  },
                 ),
               ),
 
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 4),
                 child: TextFormField(
+                  initialValue: gender,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                     ),
                     hintText: "Gender"
                   ),
+                  onChanged: (value){
+                    setState(() {
+                      gender = value;
+                    });
+                  },
                 ),
               ),
 
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 4),
                 child: TextFormField(
+                  initialValue: phone,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                     ),
                     hintText: "Phone"
                   ),
+                  onChanged: (value){
+                    setState(() {
+                      phone = value;
+                    });
+                  },
                 ),
               ),
 
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 4),
                 child: TextFormField(
+                  initialValue: mobile,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                     ),
                     hintText: "Mobile"
                   ),
+                  onChanged: (value){
+                    setState(() {
+                      mobile = value;
+                    });
+                  },
                 ),
               ),
 
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 4),
                 child: TextFormField(
+                  initialValue: SessionManager.getEmail(),
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                     ),
@@ -104,7 +154,12 @@ class _SettingsModalState extends State<SettingsModal> {
                     ),
                     height: 25,
                     onPressed: (){
+                      SessionManager.setUserName(name);
+                      SessionManager.setGender(gender);
+                      SessionManager.setPhone(phone);
+                      SessionManager.setMobile(mobile);
                       Navigator.pop(context);
+                      saveUserInfo();
                     },
                     child: Text("SAVE", style: TextStyle(color: Colors.white)),
                   ),
