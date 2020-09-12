@@ -103,7 +103,7 @@ class _SearchState extends State<Search> {
       onTap: (){
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (_) => ProductDetail()),
+          MaterialPageRoute(builder: (_) => ProductDetail(product: productList[index])),
         );
       },
       child: Container(

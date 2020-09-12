@@ -1,7 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:delivery_app/models/product.dart';
 import 'package:flutter/material.dart';
 
 class ProductDetail extends StatefulWidget {
+  final Product product;
+  
+  ProductDetail({this.product});
 
   @override
   _ProductDetailState createState() => _ProductDetailState();
@@ -14,29 +18,25 @@ class _ProductDetailState extends State<ProductDetail> {
   static List<String> imgList = [
     'assets/products/detail.jpg',
     'assets/products/clothes.jpg',
-    'assets/products/detail.jpg',
-    'assets/products/detail.jpg',
-    'assets/products/detail.jpg',
-    'assets/products/detail.jpg'
   ];
 
   List<Widget> imageSliders = imgList.map((item) => Container(
-      child: Container(
-        margin: EdgeInsets.all(5.0),
-        child: ClipRRect(
-          borderRadius: BorderRadius.all(Radius.circular(5.0)),
-          child: Stack(
-            children: <Widget>[
-              Container(
-                height: 250,
-                width: 150,
-                child: Image.asset(item, fit: BoxFit.cover),
-              ),
-            ],
-          )
-        ),
+    child: Container(
+      margin: EdgeInsets.all(5.0),
+      child: ClipRRect(
+        borderRadius: BorderRadius.all(Radius.circular(5.0)),
+        child: Stack(
+          children: <Widget>[
+            Container(
+              height: 250,
+              width: 150,
+              child: Image.asset(item, fit: BoxFit.cover),
+            ),
+          ],
+        )
       ),
-    )).toList();
+    ),
+  )).toList();
 
   @override
   void initState() {
@@ -64,7 +64,7 @@ class _ProductDetailState extends State<ProductDetail> {
                         child: Icon(Icons.arrow_back,),
                       ),
                       Center(
-                        child: Text("Nightrise Hoodle", style: TextStyle(fontSize: 16),),
+                        child: Text(widget.product.productName, style: TextStyle(fontSize: 16),),
                       ),
                       Container(),
                     ],
@@ -128,16 +128,7 @@ class _ProductDetailState extends State<ProductDetail> {
                             border: Border(bottom: BorderSide(width: 0.5, color: Colors.grey))
                           ),
                         ),
-                        Text("Urban ninjas favourite hoodie for leisure time!"),
-                        SizedBox(height: 15,),
-                        Text("interior chin guard"),
-                        SizedBox(height: 15,),
-                        Text("oversize, adjustable contoured, crossed hood with cord inside with labeled leather length regulator on it"),
-                        SizedBox(height: 15,),
-                        Text("rib cuffs with thumbholes"),
-                        SizedBox(height: 15,),
-                        Text("pinetree label on the back"),
-                        SizedBox(height: 15,),
+                        Text(widget.product.productDescription),
                         MaterialButton(
                           onPressed: (){
 
